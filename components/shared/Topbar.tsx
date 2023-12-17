@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { OrganizationSwitcher, SignedIn, SignOutButton } from "@clerk/nextjs";
 
+
 function Topbar() {
     return (
         <nav className="topbar">
