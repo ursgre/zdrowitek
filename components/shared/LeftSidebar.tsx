@@ -21,7 +21,7 @@ function LeftSidebar() {
                     <Link
                     href={link.route}
                     key={link.label}
-                  className="leftsidebar_link">
+                    className={`leftsidebar_link ${isActive && "bg-sky-500 "}`}>
     
                     
                   <Image
