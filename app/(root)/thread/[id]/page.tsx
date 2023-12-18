@@ -3,7 +3,7 @@ import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
-
+import Comment from "@/components/forms/Comment";
 
 
 
