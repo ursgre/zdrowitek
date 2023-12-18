@@ -69,6 +69,27 @@ const ThreadCard = ({
                             height={24}
                             className='cursor-pointer object-contain'
                         />
+                         <Image
+                            src='/assets/reply.svg'
+                            alt='heart'
+                            width={24}
+                            height={24}
+                            className='cursor-pointer object-contain'
+                            />
+                         <Image
+                            src='/assets/repost.svg'
+                            alt='heart'
+                            width={24}
+                            height={24}
+                            className='cursor-pointer object-contain'
+                            />
+                          <Image
+                            src='/assets/share.svg'
+                            alt='heart'
+                            width={24}
+                            height={24}
+                            className='cursor-pointer object-contain'
+                            />
 
                         </div>
                     </div>
