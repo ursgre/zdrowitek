@@ -52,18 +52,18 @@ const ThreadCard = ({
                        <div className="thread-card_bar" />
                     </div>
 
-                    <div>
+                    <div className='flex w-full flex-col'>
                     <Link href={`/profile/${author.id}`} className='w-fit'>
                         <h4 className='cursor-pointer text-base-semibold text-light-1'>
                             {author.name}
                         </h4>
                     </Link>
+                    <p className='mt-2 text-small-regular text-light-2'>{content}</p>
+
                     </div>
                 </div>
              </div>
-            <h2 className="text-small-regular text-light-2">
-                {content}
-            </h2>
+           
         </article>
     )
 }
