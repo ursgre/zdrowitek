@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import * as z from "zod"
 import { isBase64Image } from "@/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
 
 
 import {
@@ -23,6 +24,7 @@ import { UserValidation } from "@/lib/validations/user";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import { useUploadThing } from "@/lib/uploadthing";
+import { updateUser } from "@/lib/actions/user.actions";
 
 
 interface Props {
@@ -40,6 +42,8 @@ interface Props {
 
 const AccountProfile = ({user, btnTitle}: Props) => {
 
+  const router = useRouter();
+  const pathname = usePathname();
   const { startUpload } = useUploadThing("media");
   const [files, setFiles] = useState<File[]>([]);
   const form = useForm({
@@ -63,7 +67,17 @@ const AccountProfile = ({user, btnTitle}: Props) => {
         values.profile_photo = imgRes[0].fileUrl;
       }
     }
+
+    await updateUser({
+      name: values.name,
+      path: pathname,
+      username: values.username,
+      userId: user.id,
+      bio: values.bio,
+      image: values.profile_photo,
+    })
   }
+
 
   const handleImage = ( e: ChangeEvent<HTMLInputElement>,
     fieldChange: (value: string) => void) => {
