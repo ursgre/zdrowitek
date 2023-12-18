@@ -54,5 +54,15 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
       model: User,
       select: "_id name parentId image", // Select only _id and username fields of the author
     },
-  });
+  })
+
+  const totalPostsCount = await Thread.countDocuments({
+    parentId: { $in: [null, undefined] },
+  })
+
+  const posts = await postsQuery.exec();
+
+  const isNext = totalPostsCount > skipAmount + posts.length;
+
+  return { posts, isNext };
 }
