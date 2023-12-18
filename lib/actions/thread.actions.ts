@@ -13,7 +13,8 @@ export async function createThread({
     text, author, communityId, path
 }: Params){
    
-        connectToDB();
+        try{
+            connectToDB();
     
        
         const createdThread = await Thread.create({
@@ -27,4 +28,7 @@ export async function createThread({
           });
 
           revalidatePath(path);
+        }  catch (error: any) {
+            throw new Error(`Failed to create thread: ${error.message}`);
+          }
 }

@@ -56,7 +56,9 @@ function PostThread({ userId }: {userId: string}) {
         author: userId,
         communityId: null,
         path: pathname,
-        })
+        });
+
+        router.push("/")
     }
     
     return (
