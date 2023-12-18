@@ -33,6 +33,7 @@ const ThreadCard = ({
     community,
     createdAt,
     comments,
+    isComment,
     
 } : Props) => {
     return(
@@ -78,10 +79,9 @@ const ThreadCard = ({
                             className='cursor-pointer object-contain'
                             />
                         </Link>
-                         
                         </div>
-                    </div>
 
+                    </div>
                     </div>
                 </div>
              </div>
