@@ -30,7 +30,7 @@ export async function updateUser(
                     revalidatePath(path);
                 }
         }
-        catch(error) {
+        catch(error: any) {
             throw new Error('Error with creating of updating user: ${error.message}')
         }
    
