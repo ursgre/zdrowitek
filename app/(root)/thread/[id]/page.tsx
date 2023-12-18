@@ -2,6 +2,7 @@ import ThreadCard from "@/components/cards/ThreadCard";
 import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
+import { fetchThreadById } from "@/lib/actions/thread.actions";
 
 
 
