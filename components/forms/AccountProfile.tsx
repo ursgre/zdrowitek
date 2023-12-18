@@ -40,6 +40,7 @@ interface Props {
 
 const AccountProfile = ({user, btnTitle}: Props) => {
 
+  const { startUpload } = useUploadThing("media");
   const [files, setFiles] = useState<File[]>([]);
   const form = useForm({
     resolver: zodResolver(UserValidation),
