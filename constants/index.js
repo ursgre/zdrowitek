@@ -29,6 +29,11 @@ export const sidebarLinks = [
       route: "/profile",
       label: "Profile",
     },
+    {
+
+      route: "/calculatorBMI",
+      label: "Calculator BMI",
+    },
   ];
   
   export const profileTabs = [
