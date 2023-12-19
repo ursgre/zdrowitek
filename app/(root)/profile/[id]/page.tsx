@@ -5,6 +5,7 @@ import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { profileTabs } from "@/constants";
+import ThreadsTab from "@/components/shared/ThreadsTab";
 
 
 async function Page({ params }: {params: {id: string}}) {
@@ -52,8 +53,7 @@ if (!userInfo?.onboarded) redirect("/onboarding");
               value={tab.value}
               className='w-full text-light-1'
             >
-              {/* @ts-ignore */}
-              <ThreadsTab
+               <ThreadsTab
                 currentUserId={user.id}
                 accountId={userInfo.id}
                 accountType='User'
