@@ -26,13 +26,18 @@ export const sidebarLinks = [
     },
     {
       imgURL: "/assets/user.svg",
-      route: "/profile",
-      label: "Profile",
+      route: "/symptoms",
+      label: "Symptoms",
     },
     {
 
       route: "/calculatorBMI",
       label: "Calculator BMI",
+    },
+    {
+      imgURL: "/assets/user.svg",
+      route: "/profile",
+      label: "Profile",
     },
   ];
   
