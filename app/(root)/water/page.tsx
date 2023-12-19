@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
+import WaterIntake from "@/components/forms/WaterIntake";
 
 
 const Page = async () => {
@@ -12,9 +13,12 @@ const Page = async () => {
 
 
     return(
-        <section>
-            <h1 className="head-text mb-10">Water</h1>
-        </section>
+      <>
+      <h1 className='head-text'>Water</h1>
+      
+      <WaterIntake userId={userInfo._id} />
+  
+    </>
     )
 }
 
