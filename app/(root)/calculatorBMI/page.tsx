@@ -5,6 +5,7 @@ const BMICalculator = () => {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [result, setResult] = useState('');
+  const [interpretation, setInterpretation] = useState('');
 
   const calculateBMI = () => {
     // Calculate BMI
@@ -13,8 +14,19 @@ const BMICalculator = () => {
 
     if (!isNaN(parsedHeight) && !isNaN(parsedWeight) && parsedHeight > 0 && parsedWeight > 0) {
       const heightInMeters = parsedHeight / 100;
-      const bmi = (parsedWeight / (heightInMeters * heightInMeters)).toFixed(2);
-      setResult(bmi.toString());
+      const bmi = parsedWeight / (heightInMeters * heightInMeters);
+      setResult(bmi.toFixed(2));
+
+      // Interpretation based on BMI categories
+      if (bmi < 18.5) {
+        setInterpretation('Underweight');
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+        setInterpretation('Normal Weight');
+      } else if (bmi >= 25 && bmi < 29.9) {
+        setInterpretation('Overweight');
+      } else {
+        setInterpretation('Obese');
+      }
     }
   };
 
@@ -41,6 +53,7 @@ const BMICalculator = () => {
       {result && (
         <div style={{ marginTop: '20px' }}>
           <h2>Your BMI is: {result}</h2>
+          <h3>Interpretation: {interpretation}</h3>
         </div>
       )}
     </div>
