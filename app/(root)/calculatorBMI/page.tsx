@@ -39,19 +39,19 @@ const BMICalculator = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#000', color: '#fff', padding: '40px', borderRadius: '8px' }}>
-      <h1 style={{ marginBottom: '20px' }}>BMI Calculator</h1>
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ marginRight: '10px' }}>Height (in cm):</label>
-        <input type="number" value={height} onChange={handleHeightChange} style={{ color: '#000', backgroundColor: '#fff', padding: '10px', borderRadius: '4px', border: 'none' }} />
+    <div className="bg-black text-white p-8 rounded">
+      <h1 className="head-text text-3xl mb-4">BMI Calculator</h1>
+      <div className="mb-4">
+        <label className="mr-2">Height (in cm):</label>
+        <input type="number" value={height} onChange={handleHeightChange} className="bg-white text-black p-2 rounded border-none" />
       </div>
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ marginRight: '10px' }}>Weight (in kg):</label>
-        <input type="number" value={weight} onChange={handleWeightChange} style={{ color: '#000', backgroundColor: '#fff', padding: '10px', borderRadius: '4px', border: 'none' }} />
+      <div className="mb-4">
+        <label className="mr-2">Weight (in kg):</label>
+        <input type="number" value={weight} onChange={handleWeightChange} className="bg-white text-black p-2 rounded border-none" />
       </div>
       <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateBMI}>Calculate BMI</button>
       {result && (
-        <div style={{ marginTop: '20px' }}>
+        <div className="mt-4">
           <h2>Your BMI is: {result}</h2>
           <h3>Interpretation: {interpretation}</h3>
         </div>
