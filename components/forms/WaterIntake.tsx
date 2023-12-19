@@ -25,7 +25,7 @@ function AddWaterIntake({ userId }: { userId: string }) {
         onChange={(e) => setAmount(parseInt(e.target.value))}
         placeholder="Enter amount of water (in ml)"
       />
-      <button onClick={handleAddIntake}>Add Water Intake</button>
+      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={handleAddIntake}>Add Water Intake</button>
     </div>
   );
 }
