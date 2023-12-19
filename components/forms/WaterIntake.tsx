@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addWaterIntake } from "@/lib/actions/waterIntake.actions"; // Import the addWaterIntake function
 
 function AddWaterIntake({ userId }: { userId: string }) {
@@ -30,4 +30,4 @@ function AddWaterIntake({ userId }: { userId: string }) {
   );
 }
 
-export default AddWaterIntake;
+export default AddWaterIntake; 
