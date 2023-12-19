@@ -13,7 +13,7 @@ const Page = async () => {
 
     return(
         <section>
-            <h1 className="head-text mb-10">Symptoms</h1>
+            <h1 className="head-text mb-10">Water</h1>
         </section>
     )
 }
