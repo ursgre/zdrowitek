@@ -31,6 +31,7 @@ export const sidebarLinks = [
     },
     {
 
+      imgURL: "/assets/user.svg",
       route: "/calculatorBMI",
       label: "Calculator BMI",
     },
