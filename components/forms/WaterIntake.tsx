@@ -1,34 +1,40 @@
 "use client"
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { addWaterIntake, fetchDailyIntake } from "@/lib/actions/waterIntake.actions"; // Import the addWaterIntake and fetchDailyIntake functions
+import { addWaterIntake, fetchDailyIntake } from "@/lib/actions/waterIntake.actions";
 
 function AddWaterIntake({ userId }: { userId: string }) {
   const [amount, setAmount] = useState(0);
   const [dailyIntake, setDailyIntake] = useState(0);
 
   useEffect(() => {
-    const today = new Date();
-    fetchDailyWaterIntake(today);
-  }, [userId, dailyIntake]); // Add userId and dailyIntake to the dependency array
-  
-  const fetchDailyWaterIntake = async (date: Date) => {
+    fetchIntake();
+  }, [userId]);
+
+  const fetchIntake = async () => {
     try {
-      const intake = await fetchDailyIntake(userId, date);
-      console.log("Intake fetched:", intake); // Log the intake value received
+      const intake = await fetchDailyIntake(userId);
+      console.log("Intake fetched:", intake); // Log the fetched intake value
       setDailyIntake(intake);
-    } catch (error: any) {
-      console.error("Error fetching daily water intake:", error);
+    } catch (error) {
+      console.error("Error fetching daily intake:", error);
       // Handle error scenarios
     }
   };
-  
+
   const handleAddIntake = async () => {
     try {
-      await addWaterIntake({ amount, userId });
-      const today = new Date();
-      fetchDailyWaterIntake(today);
-      setAmount(0); // Reset input after adding intake
+      if (!isNaN(amount) && amount > 0) {
+        await addWaterIntake({ amount, userId });
+        
+        // Fetch and update displayed intake after adding intake
+        await fetchIntake();
+        
+        setAmount(0); // Reset input after adding intake
+      } else {
+        console.error("Invalid input for water intake");
+        // Handle invalid input scenarios (non-numeric or negative values)
+      }
     } catch (error) {
       console.error("Error adding water intake:", error);
       // Handle error scenarios
@@ -37,14 +43,16 @@ function AddWaterIntake({ userId }: { userId: string }) {
 
   return (
     <div>
-      <p className="text-white ">Amount of water drank today: {dailyIntake} ml</p>
+      <p className="text-white">Added water intake for today: {dailyIntake} ml</p>
       <input
         type="number"
-        value={amount}
+        value={!isNaN(amount) ? amount : ''}
         onChange={(e) => setAmount(parseInt(e.target.value))}
         placeholder="Enter amount of water (in ml)"
       />
-      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={handleAddIntake}>Add Water Intake</button>
+      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={handleAddIntake}>
+        Add Water Intake
+      </button>
     </div>
   );
 }

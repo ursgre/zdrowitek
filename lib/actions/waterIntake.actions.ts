@@ -1,6 +1,7 @@
 "use server";
 import { connectToDB } from "../mongoose";
 import WaterIntake from "../models/water.model";
+import User from "../models/user.model";
 
 interface IntakeParams {
   amount: number;
@@ -25,35 +26,24 @@ export async function addWaterIntake({ amount, userId }: IntakeParams) {
   }
 }
 
-export async function fetchDailyIntake(userId: string, date: Date) {
+export async function fetchDailyIntake(userId: string) {
   try {
     connectToDB();
 
-    const startOfDay = new Date(date);
-    startOfDay.setHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set time to start of the day
 
-    const endOfDay = new Date(date);
-    endOfDay.setHours(23, 59, 59, 999);
+    const intakeRecords = await WaterIntake.find({
+      user: userId,
+      date: { $gte: today }, // Fetch records from today onwards
+    });
 
-    const intake = await WaterIntake.aggregate([
-      {
-        $match: {
-          user: userId,
-          date: {
-            $gte: startOfDay,
-            $lte: endOfDay,
-          },
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          totalAmount: { $sum: "$amount" },
-        },
-      },
-    ]);
+    console.log("Intake Records:", intakeRecords); // Log fetched records
 
-    return intake.length > 0 ? intake[0].totalAmount : 0;
+    // Calculate total intake from fetched records
+    const totalIntake = intakeRecords.reduce((total, record) => total + record.amount, 0);
+
+    return totalIntake;
   } catch (error: any) {
     throw new Error(`Failed to fetch daily water intake: ${error.message}`);
   }
