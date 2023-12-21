@@ -1,9 +1,10 @@
 "use client"
+// Existing imports
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { addWaterIntake, fetchDailyIntake } from "@/lib/actions/waterIntake.actions";
+import { addWaterIntake, fetchDailyIntake, deleteWaterIntake } from "@/lib/actions/waterIntake.actions";
 
-// ... (existing imports)
+// ... (other existing imports)
 
 function AddWaterIntake({ userId }: { userId: string }) {
   const [amount, setAmount] = useState(0);
@@ -45,6 +46,21 @@ function AddWaterIntake({ userId }: { userId: string }) {
     }
   };
 
+  const handleDeleteIntake = async (index: number) => {
+    try {
+      const deletedAmount = intakeList[index];
+      const updatedIntakeList = [...intakeList];
+      updatedIntakeList.splice(index, 1);
+      setIntakeList(updatedIntakeList);
+
+      // Perform deletion logic from the backend using an API call
+      await deleteWaterIntake({ deletedAmount, userId });
+    } catch (error) {
+      console.error("Error deleting water intake:", error);
+      // Handle error scenarios
+    }
+  };
+
   return (
     <div>
       <input
@@ -60,7 +76,15 @@ function AddWaterIntake({ userId }: { userId: string }) {
       {/* Displaying all intake amounts for the day */}
       <ul className="white-text">
         {intakeList.map((intake, index) => (
-          <li key={index}>{intake} ml</li>
+          <li key={index}>
+            {intake} ml
+            <button
+              className="bg-red-500 text-white px-2 ml-2 rounded"
+              onClick={() => handleDeleteIntake(index)}
+            >
+              Delete
+            </button>
+          </li>
         ))}
       </ul>
     </div>
