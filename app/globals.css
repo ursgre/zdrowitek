@@ -163,3 +163,27 @@
 .white-text li {
   color: white;
 }
+/* styles.css or your CSS file */
+.inputField {
+  margin-bottom: 10px;
+}
+
+.addButton {
+  margin-bottom: 20px;
+}
+
+.intakeText {
+  margin-bottom: 15px;
+}
+
+.intakeList {
+  margin-top: 20px;
+}
+
+.intakeListItem {
+  margin-bottom: 8px;
+}
+
+.deleteButton {
+  margin-left: 10px;
+}

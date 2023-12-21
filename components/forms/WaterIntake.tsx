@@ -68,18 +68,21 @@ function AddWaterIntake({ userId }: { userId: string }) {
         value={!isNaN(amount) ? amount : ''}
         onChange={(e) => setAmount(parseInt(e.target.value))}
         placeholder="Enter amount of water (in ml)"
+        className="inputField"
       />
-      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={handleAddIntake}>
+      <button className="bg-sky-500 text-white px-4 py-2 rounded addButton" onClick={handleAddIntake}>
         Add Water Intake
       </button>
-      <p className="text-white">Added water intake for today: {dailyIntake} ml</p>
+      <p className="text-white intakeText">
+        Added water intake for today: {dailyIntake} ml
+      </p>
       {/* Displaying all intake amounts for the day */}
-      <ul className="white-text">
+      <ul className="white-text intakeList">
         {intakeList.map((intake, index) => (
-          <li key={index}>
+          <li key={index} className="intakeListItem">
             {intake} ml
             <button
-              className="bg-red-500 text-white px-2 ml-2 rounded"
+              className="bg-red-500 text-white px-2 ml-2 rounded deleteButton"
               onClick={() => handleDeleteIntake(index)}
             >
               Delete
@@ -89,6 +92,7 @@ function AddWaterIntake({ userId }: { userId: string }) {
       </ul>
     </div>
   );
+  
 }
 
 export default AddWaterIntake;
