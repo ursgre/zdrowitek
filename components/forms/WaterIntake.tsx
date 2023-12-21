@@ -47,13 +47,6 @@ function AddWaterIntake({ userId }: { userId: string }) {
 
   return (
     <div>
-      <p className="text-white">Added water intake for today: {dailyIntake} ml</p>
-      {/* Displaying all intake amounts for the day */}
-      <ul>
-        {intakeList.map((intake, index) => (
-          <li key={index}>{intake} ml</li>
-        ))}
-      </ul>
       <input
         type="number"
         value={!isNaN(amount) ? amount : ''}
@@ -63,6 +56,13 @@ function AddWaterIntake({ userId }: { userId: string }) {
       <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={handleAddIntake}>
         Add Water Intake
       </button>
+      <p className="text-white">Added water intake for today: {dailyIntake} ml</p>
+      {/* Displaying all intake amounts for the day */}
+      <ul className="white-text">
+        {intakeList.map((intake, index) => (
+          <li key={index}>{intake} ml</li>
+        ))}
+      </ul>
     </div>
   );
 }
