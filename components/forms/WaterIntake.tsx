@@ -52,9 +52,12 @@ function AddWaterIntake({ userId }: { userId: string }) {
       const updatedIntakeList = [...intakeList];
       updatedIntakeList.splice(index, 1);
       setIntakeList(updatedIntakeList);
-
+  
       // Perform deletion logic from the backend using an API call
       await deleteWaterIntake({ deletedAmount, userId });
+  
+      // Fetch and update displayed intake after deleting intake
+      await fetchIntake();
     } catch (error) {
       console.error("Error deleting water intake:", error);
       // Handle error scenarios
