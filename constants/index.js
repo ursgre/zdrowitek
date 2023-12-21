@@ -30,6 +30,11 @@ export const sidebarLinks = [
     label: "Water",
   },
   {
+    imgURL: "/assets/user.svg",
+    route: "/calories",
+    label: "Calories",
+  },
+  {
 
     imgURL: "/assets/user.svg",
     route: "/calculatorBMI",

@@ -1,7 +1,7 @@
 "use server";
 import { connectToDB } from "../mongoose";
 import WaterIntake from "../models/water.model";
-import User from "../models/user.model";
+
 
 interface IntakeParams {
   amount: number;
