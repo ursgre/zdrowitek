@@ -3,9 +3,12 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { addWaterIntake, fetchDailyIntake } from "@/lib/actions/waterIntake.actions";
 
+// ... (existing imports)
+
 function AddWaterIntake({ userId }: { userId: string }) {
   const [amount, setAmount] = useState(0);
   const [dailyIntake, setDailyIntake] = useState(0);
+  const [intakeList, setIntakeList] = useState<number[]>([]); // State to store all intake amounts for the day
 
   useEffect(() => {
     fetchIntake();
@@ -15,7 +18,8 @@ function AddWaterIntake({ userId }: { userId: string }) {
     try {
       const intake = await fetchDailyIntake(userId);
       console.log("Intake fetched:", intake); // Log the fetched intake value
-      setDailyIntake(intake);
+      setDailyIntake(intake.totalIntake);
+      setIntakeList(intake.intakeRecords); // Update intake list with amounts for the day
     } catch (error) {
       console.error("Error fetching daily intake:", error);
       // Handle error scenarios
@@ -44,6 +48,12 @@ function AddWaterIntake({ userId }: { userId: string }) {
   return (
     <div>
       <p className="text-white">Added water intake for today: {dailyIntake} ml</p>
+      {/* Displaying all intake amounts for the day */}
+      <ul>
+        {intakeList.map((intake, index) => (
+          <li key={index}>{intake} ml</li>
+        ))}
+      </ul>
       <input
         type="number"
         value={!isNaN(amount) ? amount : ''}

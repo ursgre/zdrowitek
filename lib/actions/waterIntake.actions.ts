@@ -43,8 +43,12 @@ export async function fetchDailyIntake(userId: string) {
     // Calculate total intake from fetched records
     const totalIntake = intakeRecords.reduce((total, record) => total + record.amount, 0);
 
-    return totalIntake;
+    // Extract just the amounts from intake records
+    const intakeAmounts = intakeRecords.map((record) => record.amount);
+
+    return { intakeRecords: intakeAmounts, totalIntake };
   } catch (error: any) {
     throw new Error(`Failed to fetch daily water intake: ${error.message}`);
   }
 }
+
