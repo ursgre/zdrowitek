@@ -1,13 +1,33 @@
 "use client"
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
-const DailyCalorieCalculator = () => {
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('male');
-  const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
-  const [activityLevel, setActivityLevel] = useState('sedentary');
-  const [result, setResult] = useState('');
+interface DailyCalorieCalculatorProps {}
+
+const getActivityMultiplier = (activityLevel: string): number => {
+  switch (activityLevel) {
+    case 'sedentary':
+      return 1.2;
+    case 'lightlyActive':
+      return 1.375;
+    case 'moderatelyActive':
+      return 1.55;
+    case 'veryActive':
+      return 1.725;
+    case 'extraActive':
+      return 1.9;
+    default:
+      return 1.2; // Default set to sedentary
+  }
+};
+
+const DailyCalorieCalculator: React.FC<DailyCalorieCalculatorProps> = () => {
+  const [age, setAge] = useState<string>('');
+  const [gender, setGender] = useState<string>('male');
+  const [weight, setWeight] = useState<string>('');
+  const [height, setHeight] = useState<string>('');
+  const [activityLevel, setActivityLevel] = useState<string>('sedentary');
+  const [goal, setGoal] = useState<string>('maintain');
+  const [result, setResult] = useState<string>('');
 
   const calculateCalories = () => {
     const parsedAge = parseInt(age);
@@ -24,35 +44,31 @@ const DailyCalorieCalculator = () => {
     ) {
       let bmr = 0;
 
-      // Calculate BMR based on gender
       if (gender === 'male') {
         bmr = 10 * parsedWeight + 6.25 * parsedHeight - 5 * parsedAge + 5;
       } else {
         bmr = 10 * parsedWeight + 6.25 * parsedHeight - 5 * parsedAge - 161;
       }
 
-      // Adjust BMR based on activity level
-      switch (activityLevel) {
-        case 'sedentary':
-          bmr *= 1.2;
+      let dailyCalories = 0;
+
+      switch (goal) {
+        case 'maintain':
+          dailyCalories = bmr * getActivityMultiplier(activityLevel);
           break;
-        case 'lightlyActive':
-          bmr *= 1.375;
+        case 'lose':
+          const calorieDeficit = 500; // Daily calorie deficit
+          dailyCalories = bmr * getActivityMultiplier(activityLevel) - calorieDeficit;
           break;
-        case 'moderatelyActive':
-          bmr *= 1.55;
-          break;
-        case 'veryActive':
-          bmr *= 1.725;
-          break;
-        case 'extraActive':
-          bmr *= 1.9;
+        case 'gain':
+          const calorieSurplus = 500; // Daily calorie surplus
+          dailyCalories = bmr * getActivityMultiplier(activityLevel) + calorieSurplus;
           break;
         default:
           break;
       }
 
-      setResult(bmr.toFixed(2));
+      setResult(dailyCalories.toFixed(2));
     }
   };
 
@@ -74,6 +90,10 @@ const DailyCalorieCalculator = () => {
 
   const handleActivityLevelChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setActivityLevel(e.target.value);
+  };
+
+  const handleGoalChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setGoal(e.target.value);
   };
 
   return (
@@ -106,6 +126,14 @@ const DailyCalorieCalculator = () => {
           <option value="moderatelyActive">Moderately Active</option>
           <option value="veryActive">Very Active</option>
           <option value="extraActive">Extra Active</option>
+        </select>
+      </div>
+      <div className="mb-4">
+        <label className="mr-2">Goal:</label>
+        <select value={goal} onChange={handleGoalChange} className="bg-white text-black p-2 rounded border-none">
+          <option value="maintain">Maintain Weight</option>
+          <option value="lose">Lose Weight</option>
+          <option value="gain">Gain Weight</option>
         </select>
       </div>
       <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateCalories}>Calculate Calories</button>
