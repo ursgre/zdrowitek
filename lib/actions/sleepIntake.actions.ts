@@ -35,27 +35,30 @@ export async function addSleepIntake({ amount, userId }: IntakeParams) {
   }
 }
 
-export async function fetchDailySleep(userId: string) {
+export async function fetchLastSevenDaysSleep(userId: string) {
   try {
     connectToDB();
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to start of the day
 
+    const sevenDaysAgo = new Date(today);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6); // Get date 6 days ago
+
     const sleepIntakeRecords = await SleepIntake.find({
       user: userId,
-      date: { $gte: today }, // Fetch records from today onwards
+      date: { $gte: sevenDaysAgo, $lte: today }, // Fetch records from seven days ago up to today
     });
 
-    console.log("Sleep Intake Records:", sleepIntakeRecords); // Log fetched records
-
-    
     // Extract just the amounts from sleep intake records
-    const sleepIntakeAmounts = sleepIntakeRecords.map((record) => record.amount);
+    const sleepIntakeAmounts = sleepIntakeRecords.map((record) => ({
+      date: record.date,
+      amount: record.amount,
+    }));
 
-    return { intakeRecords: sleepIntakeAmounts };
+    return sleepIntakeAmounts;
   } catch (error: any) {
-    throw new Error(`Failed to fetch daily sleep intake: ${error.message}`);
+    throw new Error(`Failed to fetch sleep intake for the last seven days: ${error.message}`);
   }
 }
 

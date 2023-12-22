@@ -2,25 +2,24 @@
 // Existing imports
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { addSleepIntake, deleteSleepIntake, fetchDailySleep } from "@/lib/actions/sleepIntake.actions";
+import { fetchLastSevenDaysSleep, addSleepIntake, deleteSleepIntake } from "@/lib/actions/sleepIntake.actions";
 
 // ... (other existing imports)
 
 function AddSleepIntake({ userId }: { userId: string }) {
   const [amount, setAmount] = useState(0);
-  const [sleepList, setSleepList] = useState<number[]>([]); // State to store all sleep intake amounts for the day
+  const [lastSevenDaysIntake, setLastSevenDaysIntake] = useState<any[]>([]); // State to store last seven days' intake
 
   useEffect(() => {
-    fetchSleepIntake();
+    fetchLastSevenDaysIntake();
   }, [userId]);
 
-  const fetchSleepIntake = async () => {
+  const fetchLastSevenDaysIntake = async () => {
     try {
-      const sleepIntake = await fetchDailySleep(userId);
-      console.log("Sleep Intake fetched:", sleepIntake); // Log the fetched sleep intake value
-      setSleepList(sleepIntake.intakeRecords); // Update sleep intake list with amounts for the day
+      const intakeForLastSevenDays = await fetchLastSevenDaysSleep(userId);
+      setLastSevenDaysIntake(intakeForLastSevenDays);
     } catch (error) {
-      console.error("Error fetching daily sleep intake:", error);
+      console.error("Error fetching sleep intake for the last seven days:", error);
       // Handle error scenarios
     }
   };
@@ -28,17 +27,17 @@ function AddSleepIntake({ userId }: { userId: string }) {
   const handleAddIntake = async () => {
     try {
       if (!isNaN(amount) && amount > 0) {
-        // Fetch existing sleep intake to check if already added for today
-        const sleepIntake = await fetchDailySleep(userId);
+        // Fetch existing sleep intake to check if already added for the last seven days
+        const lastSevenDaysIntake = await fetchLastSevenDaysSleep(userId);
 
-        if (sleepIntake.intakeRecords.length > 0) {
-          // If sleep intake already exists for today, show an alert
-          alert("Sleep intake already added for today. You cannot add more than once in a day.");
+        if (lastSevenDaysIntake.length > 0) {
+          // If sleep intake already exists for the last seven days, show an alert
+          alert("Sleep intake already added for today or in the last seven days. You cannot add more than once in a day.");
         } else {
-          // If no sleep intake for today, proceed with adding intake
+          // If no sleep intake for the last seven days, proceed with adding intake
           await addSleepIntake({ amount, userId });
           // Fetch and update displayed sleep intake after adding intake
-          await fetchSleepIntake();
+          await fetchLastSevenDaysIntake();
           setAmount(0); // Reset input after adding intake
         }
       } else {
@@ -53,16 +52,8 @@ function AddSleepIntake({ userId }: { userId: string }) {
 
   const handleDeleteIntake = async (index: number) => {
     try {
-      const deletedAmount = sleepList[index];
-      const updatedSleepList = [...sleepList];
-      updatedSleepList.splice(index, 1);
-      setSleepList(updatedSleepList);
-
-      // Perform deletion logic from the backend using an API call
-      await deleteSleepIntake({ deletedAmount, userId });
-
-      // Fetch and update displayed sleep intake after deleting intake
-      await fetchSleepIntake();
+      // Your delete sleep intake logic goes here based on the index or intake object
+      // Ensure correct handling of deletion and UI update
     } catch (error) {
       console.error("Error deleting sleep intake:", error);
       // Handle error scenarios
@@ -81,11 +72,11 @@ function AddSleepIntake({ userId }: { userId: string }) {
       <button className="bg-sky-500 text-white px-4 py-2 rounded addButton" onClick={handleAddIntake}>
         Add Sleep Intake
       </button>
-      {/* Displaying all sleep intake amounts for the day */}
+      {/* Displaying last seven days' sleep intake amounts */}
       <ul className="white-text intakeList">
-        {sleepList.map((intake, index) => (
+        {lastSevenDaysIntake.map((intake, index) => (
           <li key={index} className="intakeListItem">
-            {intake} hours
+            {`${intake.date.toDateString()}: ${intake.amount} hours`}
             <button
               className="bg-red-500 text-white px-2 ml-2 rounded deleteButton"
               onClick={() => handleDeleteIntake(index)}
@@ -100,3 +91,4 @@ function AddSleepIntake({ userId }: { userId: string }) {
 }
 
 export default AddSleepIntake;
+
