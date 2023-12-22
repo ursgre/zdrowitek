@@ -7,12 +7,12 @@ export const sidebarLinks = [
   {
     imgURL: "/assets/search.svg",
     route: "/search",
-    label: "Search",
+    label: "Users",
   },
   {
     imgURL: "/assets/heart.svg",
     route: "/activity",
-    label: "Activity",
+    label: "Notifications",
   },
   {
     imgURL: "/assets/create.svg",
@@ -35,11 +35,20 @@ export const sidebarLinks = [
     label: "Calories",
   },
   {
-
-    imgURL: "/assets/user.svg",
+   imgURL: "/assets/user.svg",
     route: "/calculatorBMI",
     label: "Calculator BMI",
   },
+  {
+    imgURL: "/assets/user.svg",
+     route: "/calculatorWater",
+     label: "Calculator Water",
+   },
+   {
+    imgURL: "/assets/user.svg",
+     route: "/calculatorCalories",
+     label: "Calculator Calories",
+   },
   {
     imgURL: "/assets/user.svg",
     route: "/profile",
