@@ -31,6 +31,11 @@ export const sidebarLinks = [
   },
   {
     imgURL: "/assets/user.svg",
+    route: "/sleep",
+    label: "Sleep",
+  },
+  {
+    imgURL: "/assets/user.svg",
     route: "/calories",
     label: "Calories",
   },
