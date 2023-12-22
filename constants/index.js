@@ -49,6 +49,11 @@ export const sidebarLinks = [
      route: "/calculatorCalories",
      label: "Calculator Calories",
    },
+   {
+    imgURL: "/assets/user.svg",
+     route: "/calculatorSleep",
+     label: "Calculator Sleep",
+   },
   {
     imgURL: "/assets/user.svg",
     route: "/profile",
