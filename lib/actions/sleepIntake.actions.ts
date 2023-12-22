@@ -14,7 +14,17 @@ export async function addSleepIntake({ amount, userId }: IntakeParams) {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to start of the day
 
-    // Create a new sleep intake record for the day
+    // Check if a sleep intake record already exists for the user and today's date
+    const existingRecord = await SleepIntake.findOne({
+      user: userId,
+      date: today,
+    });
+
+    if (existingRecord) {
+      throw new Error("Sleep intake already added for today");
+    }
+
+    // Create a new sleep intake record for the day if no record exists
     await SleepIntake.create({
       amount,
       user: userId,
@@ -39,13 +49,11 @@ export async function fetchDailySleep(userId: string) {
 
     console.log("Sleep Intake Records:", sleepIntakeRecords); // Log fetched records
 
-    // Calculate total sleep intake from fetched records
-    const totalSleepIntake = sleepIntakeRecords.reduce((total, record) => total + record.amount, 0);
-
+    
     // Extract just the amounts from sleep intake records
     const sleepIntakeAmounts = sleepIntakeRecords.map((record) => record.amount);
 
-    return { intakeRecords: sleepIntakeAmounts, totalIntake: totalSleepIntake };
+    return { intakeRecords: sleepIntakeAmounts };
   } catch (error: any) {
     throw new Error(`Failed to fetch daily sleep intake: ${error.message}`);
   }
