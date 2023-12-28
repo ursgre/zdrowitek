@@ -100,27 +100,27 @@ const DailyCalorieCalculator: React.FC<DailyCalorieCalculatorProps> = () => {
     <div className="bg-black text-white p-8 rounded">
       <h1 className="head-text text-3xl mb-4">Daily Calorie Needs Calculator</h1>
       <div className="mb-4">
-        <label className="mr-2">Age:</label>
-        <input type="number" value={age} onChange={handleAgeChange} className="bg-white text-black p-2 rounded border-none" />
+        <label htmlFor="age" className="mr-2">Age:</label>
+        <input id="age" type="number" value={age} onChange={handleAgeChange} className="bg-white text-black p-2 rounded border-none" />
       </div>
       <div className="mb-4">
-        <label className="mr-2">Gender:</label>
-        <select value={gender} onChange={handleGenderChange} className="bg-white text-black p-2 rounded border-none">
+        <label htmlFor="gender" className="mr-2">Gender:</label>
+        <select id="gender" value={gender} onChange={handleGenderChange} className="bg-white text-black p-2 rounded border-none">
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
       </div>
       <div className="mb-4">
-        <label className="mr-2">Weight (in kg):</label>
-        <input type="number" value={weight} onChange={handleWeightChange} className="bg-white text-black p-2 rounded border-none" />
+        <label htmlFor="weight" className="mr-2">Weight (in kg):</label>
+        <input id="weight" type="number" value={weight} onChange={handleWeightChange} className="bg-white text-black p-2 rounded border-none" />
       </div>
       <div className="mb-4">
-        <label className="mr-2">Height (in cm):</label>
-        <input type="number" value={height} onChange={handleHeightChange} className="bg-white text-black p-2 rounded border-none" />
+        <label htmlFor="height" className="mr-2">Height (in cm):</label>
+        <input id="height" type="number" value={height} onChange={handleHeightChange} className="bg-white text-black p-2 rounded border-none" />
       </div>
       <div className="mb-4">
-        <label className="mr-2">Activity Level:</label>
-        <select value={activityLevel} onChange={handleActivityLevelChange} className="bg-white text-black p-2 rounded border-none">
+        <label htmlFor="activityLevel" className="mr-2">Activity Level:</label>
+        <select id="activityLevel" value={activityLevel} onChange={handleActivityLevelChange} className="bg-white text-black p-2 rounded border-none">
           <option value="sedentary">Sedentary</option>
           <option value="lightlyActive">Lightly Active</option>
           <option value="moderatelyActive">Moderately Active</option>
@@ -129,8 +129,8 @@ const DailyCalorieCalculator: React.FC<DailyCalorieCalculatorProps> = () => {
         </select>
       </div>
       <div className="mb-4">
-        <label className="mr-2">Goal:</label>
-        <select value={goal} onChange={handleGoalChange} className="bg-white text-black p-2 rounded border-none">
+        <label htmlFor="goal" className="mr-2">Goal:</label>
+        <select id="goal" value={goal} onChange={handleGoalChange} className="bg-white text-black p-2 rounded border-none">
           <option value="maintain">Maintain Weight</option>
           <option value="lose">Lose Weight</option>
           <option value="gain">Gain Weight</option>
