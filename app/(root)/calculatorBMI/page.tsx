@@ -1,5 +1,5 @@
 "use client"
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
 const BMICalculator = () => {
   const [height, setHeight] = useState('');
@@ -42,14 +42,32 @@ const BMICalculator = () => {
     <div className="bg-black text-white p-8 rounded">
       <h1 className="head-text text-3xl mb-4">BMI Calculator</h1>
       <div className="mb-4">
-        <label className="mr-2">Height (in cm):</label>
-        <input type="number" value={height} onChange={handleHeightChange} className="bg-white text-black p-2 rounded border-none" />
+        <label htmlFor="heightInput" className="mr-2">
+          Height (in cm):
+        </label>
+        <input
+          id="heightInput"
+          type="number"
+          value={height}
+          onChange={handleHeightChange}
+          className="bg-white text-black p-2 rounded border-none"
+        />
       </div>
       <div className="mb-4">
-        <label className="mr-2">Weight (in kg):</label>
-        <input type="number" value={weight} onChange={handleWeightChange} className="bg-white text-black p-2 rounded border-none" />
+        <label htmlFor="weightInput" className="mr-2">
+          Weight (in kg):
+        </label>
+        <input
+          id="weightInput"
+          type="number"
+          value={weight}
+          onChange={handleWeightChange}
+          className="bg-white text-black p-2 rounded border-none"
+        />
       </div>
-      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateBMI}>Calculate BMI</button>
+      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateBMI}>
+        Calculate BMI
+      </button>
       {result && (
         <div className="mt-4">
           <h2>Your BMI is: {result}</h2>
@@ -61,4 +79,3 @@ const BMICalculator = () => {
 };
 
 export default BMICalculator;
-
