@@ -1,9 +1,9 @@
 "use client"
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
 const SleepCalculator = () => {
   const [age, setAge] = useState('');
-  const [recommendedSleep, setRecommendedSleep] = useState('');
+  const [recommendedSleep, setRecommendedSleep] = useState<string | null>(null);
 
   const calculateSleep = () => {
     const parsedAge = parseInt(age);
@@ -24,7 +24,7 @@ const SleepCalculator = () => {
         recommendedHours = '7 - 8 hours';
       }
 
-      setRecommendedSleep(recommendedHours);
+      setRecommendedSleep(recommendedHours); // Update recommended sleep state
     }
   };
 
@@ -36,11 +36,21 @@ const SleepCalculator = () => {
     <div className="bg-black text-white p-8 rounded">
       <h1 className="head-text text-3xl mb-4">Sleep Calculator</h1>
       <div className="mb-4">
-        <label className="mr-2">Enter Age:</label>
-        <input type="number" value={age} onChange={handleAgeChange} className="bg-white text-black p-2 rounded border-none" />
+        <label htmlFor="age" className="mr-2">
+          Enter Age:
+        </label>
+        <input
+          id="age"
+          type="number"
+          value={age}
+          onChange={handleAgeChange}
+          className="bg-white text-black p-2 rounded border-none"
+        />
       </div>
-      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateSleep}>Calculate Sleep</button>
-      {recommendedSleep && (
+      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateSleep}>
+        Calculate Sleep
+      </button>
+      {recommendedSleep && ( // Check if recommendation exists
         <div className="mt-4">
           <h2>Recommended sleep duration: {recommendedSleep}</h2>
         </div>
