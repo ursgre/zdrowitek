@@ -1,11 +1,11 @@
 "use client"
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
 const WaterIntakeCalculator = () => {
   const [weight, setWeight] = useState('');
   const [activityLevel, setActivityLevel] = useState('sedentary');
   const [waterIntake, setWaterIntake] = useState('');
-  
+
   const calculateWaterIntake = () => {
     const parsedWeight = parseFloat(weight);
 
@@ -27,7 +27,7 @@ const WaterIntakeCalculator = () => {
           break;
       }
 
-      const calculatedIntake = (parsedWeight * intakeMultiplier) / 1000; // Convert to liters
+      const calculatedIntake = (parsedWeight * intakeMultiplier) / 1000;
       setWaterIntake(calculatedIntake.toFixed(2));
     }
   };
@@ -44,18 +44,35 @@ const WaterIntakeCalculator = () => {
     <div className="bg-black text-white p-8 rounded">
       <h1 className="head-text text-3xl mb-4">Water Intake Calculator</h1>
       <div className="mb-4">
-        <label className="mr-2">Weight (in kg):</label>
-        <input type="number" value={weight} onChange={handleWeightChange} className="bg-white text-black p-2 rounded border-none" />
+        <label htmlFor="weightInput" className="mr-2">
+          Weight (in kg):
+        </label>
+        <input
+          id="weightInput"
+          type="number"
+          value={weight}
+          onChange={handleWeightChange}
+          className="bg-white text-black p-2 rounded border-none"
+        />
       </div>
       <div className="mb-4">
-        <label className="mr-2">Activity Level:</label>
-        <select value={activityLevel} onChange={handleActivityLevelChange} className="bg-white text-black p-2 rounded border-none">
+        <label htmlFor="activityLevelSelect" className="mr-2">
+          Activity Level:
+        </label>
+        <select
+          id="activityLevelSelect"
+          value={activityLevel}
+          onChange={handleActivityLevelChange}
+          className="bg-white text-black p-2 rounded border-none"
+        >
           <option value="sedentary">Sedentary</option>
           <option value="moderate">Moderate</option>
           <option value="active">Active</option>
         </select>
       </div>
-      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateWaterIntake}>Calculate Water Intake</button>
+      <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateWaterIntake}>
+        Calculate Water Intake
+      </button>
       {waterIntake && (
         <div className="mt-4">
           <h2>Your Recommended Daily Water Intake is: {waterIntake} liters</h2>
