@@ -42,7 +42,7 @@ const WaterIntakeCalculator = () => {
 
   return (
     <div className="bg-black text-white p-8 rounded">
-      <h1 className="head-text text-3xl mb-4">Water Intake Calculator</h1>
+      <h1 className="head-text text-3xl mb-4">Daily water requirements calculator</h1>
       <div className="mb-4">
         <label htmlFor="weightInput" className="mr-2">
           Weight (in kg):
@@ -71,7 +71,7 @@ const WaterIntakeCalculator = () => {
         </select>
       </div>
       <button className="bg-sky-500 text-white px-4 py-2 rounded" onClick={calculateWaterIntake}>
-        Calculate Water Intake
+        Calculate water requirements
       </button>
       {waterIntake && (
         <div className="mt-4">
