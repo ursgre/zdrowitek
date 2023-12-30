@@ -82,12 +82,12 @@ function AddCalorieIntake({ userId }: { userId: string }) {
           Add Calorie Intake
         </button>
         <p className="text-white intakeText">
-          Added calorie intake for today: {dailyCalories} calories
+          Added calorie intake for today: {dailyCalories} kcal
         </p>
         <ul className="white-text intakeList">
           {calorieList.map((calorie, index) => (
             <li key={index} className="intakeListItem">
-              {calorie} calories
+              {calorie} kcal
               <button
                 className="bg-red-500 text-white px-2 ml-2 rounded deleteButton"
                 onClick={() => handleDeleteCalorieIntake(index)}
