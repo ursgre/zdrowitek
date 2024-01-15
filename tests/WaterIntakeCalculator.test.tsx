@@ -7,7 +7,7 @@ test('calculates water intake correctly', () => {
 
   const weightInput = getByLabelText('Weight (in kg):');
   const activityLevelSelect = getByLabelText('Activity Level:');
-  const calculateButton = getByText('Calculate Water Intake');
+  const calculateButton = getByText('Calculate water requirements'); // Adjust the button text
 
   fireEvent.change(weightInput, { target: { value: '70' } });
   fireEvent.change(activityLevelSelect, { target: { value: 'active' } });
