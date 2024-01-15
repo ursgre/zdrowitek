@@ -24,6 +24,7 @@ import { isBase64Image } from "@/lib/utils";
 
 import { UserValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
+import React from "react";
 
 interface Props {
   user: {
