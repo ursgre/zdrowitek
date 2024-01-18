@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import WaterIntakeCalculator from '../app/(root)/calculatorWater/page'; // Update the path to your WaterIntakeCalculator component
+import WaterIntakeCalculator from '../app/(root)/calculatorWater/page'; 
 
 test('calculates water intake correctly', () => {
   const { getByLabelText, getByText } = render(<WaterIntakeCalculator />);
 
   const weightInput = getByLabelText('Weight (in kg):');
   const activityLevelSelect = getByLabelText('Activity Level:');
-  const calculateButton = getByText('Calculate Water Intake');
+  const calculateButton = getByText('Calculate water requirements'); // Update the text here
 
   fireEvent.change(weightInput, { target: { value: '70' } });
   fireEvent.change(activityLevelSelect, { target: { value: 'active' } });
