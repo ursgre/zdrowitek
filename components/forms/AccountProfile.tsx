@@ -24,6 +24,7 @@ import { isBase64Image } from "@/lib/utils";
 
 import { UserValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
+import React from "react";
 
 interface Props {
   user: {
@@ -57,8 +58,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
     const blob = values.profile_photo;
 
- 
-
     await updateUser({
       name: values.name,
       path: pathname,
@@ -75,16 +74,14 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     }
   };
 
-
   return (
     <Form {...form}>
       <form
         className='flex flex-col justify-start gap-10'
         onSubmit={form.handleSubmit(onSubmit)}
       >
-       
 
-     <FormField
+        <FormField
           control={form.control}
           name='name'
           render={({ field }) => (
