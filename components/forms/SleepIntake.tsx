@@ -6,8 +6,8 @@ import { fetchLastSevenDaysSleep, addSleepIntake, deleteSleepIntake } from "@/li
 
 function AddSleepIntake({ userId }: { userId: string }) {
   const [amount, setAmount] = useState(0);
-  const [lastSevenDaysIntake, setLastSevenDaysIntake] = useState<any[]>([]); // State to store last seven days' intake
-  const [averageSleep, setAverageSleep] = useState<number | null>(null); // State to store average sleep
+  const [lastSevenDaysIntake, setLastSevenDaysIntake] = useState<any[]>([]);
+  const [averageSleep, setAverageSleep] = useState<number | null>(null);
 
   useEffect(() => {
     fetchLastSevenDaysIntake();
@@ -23,7 +23,7 @@ function AddSleepIntake({ userId }: { userId: string }) {
       setLastSevenDaysIntake(intakeForLastSevenDays);
     } catch (error) {
       console.error("Error fetching sleep intake for the last seven days:", error);
-      // Error handling
+      // Handle error scenarios
     }
   };
 
@@ -36,13 +36,16 @@ function AddSleepIntake({ userId }: { userId: string }) {
   const handleAddIntake = async () => {
     try {
       if (!isNaN(amount) && amount > 0) {
-        const lastSevenDaysIntake = await fetchLastSevenDaysSleep(userId);
+        // Check if sleep intake already added for today
+        const todayIntake = lastSevenDaysIntake.find(
+          (intake) => new Date(intake.date).toDateString() === new Date().toDateString()
+        );
 
-        if (lastSevenDaysIntake.length > 0) {
-          alert("Sleep intake already added for today or in the last seven days. You cannot add more than once in a day.");
+        if (todayIntake) {
+          alert("Sleep intake already added for today");
         } else {
           await addSleepIntake({ amount, userId });
-          await fetchLastSevenDaysIntake();
+          await fetchLastSevenDaysIntake(); // Refresh the intake data
           setAmount(0);
         }
       } else {
@@ -92,9 +95,7 @@ function AddSleepIntake({ userId }: { userId: string }) {
       </ul>
       <div className="averageSleep text-white">
         {averageSleep !== null ? (
-          <p>
-            Average sleep for the last 7 days: {averageSleep.toFixed(2)} hours
-          </p>
+          <p>Average sleep for the last 7 days: {averageSleep.toFixed(2)} hours</p>
         ) : (
           <p>No data available for calculating average sleep</p>
         )}
